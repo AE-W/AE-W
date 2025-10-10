@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Curie</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:image" content="https://jonbarron.info/curie/img/curie.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1296">
+    <meta property="og:image:height" content="840">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jonbarron.info/curie/"/>
+    <meta property="og:title" content="Curie: Toward Rigorous and Automated Scientific Experimentation with AI Agents" />
+    <meta property="og:description" content="An AI agent framework designed to automate scientific experimentation with rigor at its core. From reproducing existing results to extending and challenging them, Curie enables researchers to move scientific research at the speed of thought." />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Curie: Toward Rigorous and Automated Scientific Experimentation with AI Agents" />
+    <meta name="twitter:description" content="An AI agent framework designed to automate scientific experimentation with rigor at its core. From reproducing existing results to extending and challenging them, Curie enables researchers to move scientific research at the speed of thought." />
+    <meta name="twitter:image" content="https://jonbarron.info/curie/img/curie.png" />
+
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    
+    <script src="js/app.js"></script>
+    <script src="js/video_comparison.js"></script>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <b>Curie</b>: Toward Rigorous and Automated Scientific Experimentation with AI Agents</br> 
+                <small>
+                arXiv 2025
+                </small>
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="https://www.cs-pk.com">
+                          Patrick Tser Jern Kon
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://amberljc.github.io">
+                            Jiachen Liu
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ae-w.github.io/AE-W/">
+                          Qiuyi Ding
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://yimingqiu.me">
+                          Yiming Qiu
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://zyang37.github.io">
+                          Zhenning Yang
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://huangyibo.github.io">
+                          Yibo Huang
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://scholar.google.com/citations?user=HtNfeKYAAAAJ&hl=en">
+                          Jayanth Srinivasa
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://scholar.google.com/citations?user=XjWpxJUAAAAJ&hl=en">
+                          Myungjin Lee
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://mosharaf.com">
+                          Mosharaf Chowdhury
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://web.eecs.umich.edu/~chenang/">
+                          Ang Chen
+                        </a>
+                    </li>
+                    </br>University of Michigan
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                    <ul class="nav nav-pills nav-justified">
+                        <li>
+                            <a href="https://arxiv.org/abs/2502.16069">
+                            <image src="img/curie.png" height="60px">
+                                <h4><strong>Paper</strong></h4>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Just-Curieous/Curie">
+                            <image src="img/github.png" height="60px">
+                                <h4><strong>Code</strong></h4>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Abstract
+                </h3>
+                <p class="text-justify">
+Scientific experimentation, a cornerstone of human progress, demands rigor in reliability, methodical control, and interpretability to yield meaningful results. Despite the growing capabilities of large language models (LLMs) in automating different aspects of the scientific process, automating rigorous experimentation remains a significant challenge. To address this gap, we propose Curie, an AI agent framework designed to embed rigor into the experimentation process through three key components: an intra-agent rigor module to enhance reliability, an inter-agent rigor module to maintain methodical control, and an experiment knowledge module to enhance interpretability. To evaluate Curie, we design a novel experimental benchmark composed of 46 questions across four computer science domains, derived from influential research papers, and widely adopted open-source projects. Compared to the strongest baseline tested, we achieve a 3.4× improvement in correctly answering experimental questions.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Video
+                </h3>
+                <div class="text-center">
+                    <div style="position:relative;padding-top:56.25%;">
+                        <iframe src="https://youtube.com/embed/xrrhynRzC8k" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+<br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    360° Video Flythroughs
+                </h3>
+                <div class="text-center">
+                    <div style="position:relative;padding-top:56.25%;">
+                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLzPoYEE6Aw7Jzjek1uEIPnpcTDL3u8tb4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                        <!-- <iframe src="https://youtube.com/embed/jbE2ri8xEZo" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+<br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Multisampling
+                </h3>
+				<table style="width: 100%; border-collapse: collapse;">
+				  <tr>
+				    <td style="text-align: center;">
+		                <video id="v0" width="100%" autoplay loop muted>
+		                  <source src="img/hexify_train.mp4" type="video/mp4" />
+		                </video>
+					</td>
+				    <td style="text-align: center;">
+		                <video id="v0" width="100%" autoplay loop muted>
+		                  <source src="img/hexify_test.mp4" type="video/mp4" />
+		                </video>
+					</td>
+				  </tr>
+				  <tr>
+				    <td style="text-align: center;">When Training</td>
+				    <td style="text-align: center;">When Rendering</td>
+				  </tr>
+				</table>
+                <p class="text-justify">
+                    We use multisampling to approximate the average NGP feature over a conical frustum, by constructing a 6-sample pattern that exactly matches the frustum's first and second moments. When training, we randomly rotate and flip (along the ray axis) each pattern, and when rendering we deterministically flip and rotate each adjacent pattern by 30 degrees.
+                </p>
+            </div>
+        </div>
+<br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    XY aliasing
+                </h3>
+                <video class="video" width=100% id="xyalias" loop playsinline autoplay muted src="img/xy_alias_swipe_crf27.mp4" onplay="resizeAndPlay(this)"></video>
+                <canvas height=0 class="videoMerge" id="xyaliasMerge"></canvas>
+                <p class="text-justify">
+                    A naive baseline (left) combining mip-NeRF 360 and Instant NGP results in aliasing as the camera moves laterally. Our full method (right) produces prefiltered renderings that do not flicker or shimmer.
+                </p>
+            </div>
+        </div>
+           
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Z aliasing
+                </h3>
+                <video id="v0" width="100%" autoplay loop muted>
+                  <source src="img/z_alias_pdf_labeled.m4v" type="video/mp4" />
+                </video>
+                <p class="text-justify">
+                    The proposal network used for resampling points along rays in mip-NeRF 360 results in an artifact we refer to as <em>z-aliasing</em>, where foreground content alternately appears and disappears as the camera moves toward or away from scene content. Z-aliasing occurs when the initial set of samples from the proposal network is not dense enough and misses thin structures, such as the chair above. Missed content can not be recovered by later rounds of sampling, since no future samples will be placed at that location along the ray. Our improvements to proposal network supervision result in a prefiltered proposal output that preserves the foreground object for all frames in this sequence. The plots above depict samples along a ray for three rounds of resampling (blue, orange, and green lines), with the y axis showing rendering weight (how much each interval contributes to the final rendered color), as a normalized probability density.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Citation
+                </h3>
+                <div class="form-group col-md-10 col-md-offset-1">
+                    <textarea id="bibtex" class="form-control" readonly>
+@article{barron2023zipnerf,
+    title={Zip-NeRF: Anti-Aliased Grid-Based Neural Radiance Fields},
+    author={Jonathan T. Barron and Ben Mildenhall and 
+            Dor Verbin and Pratul P. Srinivasan and Peter Hedman},
+    journal={ICCV},
+    year={2023}
+}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Acknowledgements
+                </h3>
+                <p class="text-justify">
+                Thanks to Janne Kontkanen, Rick Szeliski, and David Salesin for their comments on the text, and to Ricardo Martin-Brualla, Keunhong Park, Ben Poole, Aleksander Hołyński, Etienne Pot, Kostas Rematas, Daniel Duckworth, Marcos Seefelder, Cardin Moffett, and Peter Zhizhin for their advice and help.
+                    <br><br>
+                The website template was borrowed from <a href="http://mgharbi.com/">Michaël Gharbi</a> and <a href="https://dorverbin.github.io/refnerf">Ref-NeRF</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
