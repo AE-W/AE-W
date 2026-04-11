@@ -1,0 +1,235 @@
+% !TEX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+% ---------- Encoding & Fonts ----------
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{TeX Gyre Pagella} % 近似优雅衬线；可改为 Times New Roman
+\setsansfont{TeX Gyre Heros}
+\setmonofont{JetBrains Mono}[
+  Scale=0.9,
+  Contextuals=Alternate
+]
+
+% ---------- Geometry & Spacing ----------
+\usepackage[a4paper,left=1.9cm,right=1.9cm,top=1.4cm,bottom=1.3cm,footskip=0.5cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.05}
+\usepackage{parskip}
+\setlength{\parskip}{2pt}
+\setlength{\parindent}{0pt}
+
+% ---------- Colors ----------
+\usepackage{xcolor}
+\definecolor{secgray}{HTML}{000000}   % 原来 222222
+\definecolor{lightgray}{HTML}{000000} % 原来 777777
+\definecolor{linkblue}{HTML}{1A73E8}
+
+
+% ---------- Links ----------
+\usepackage[colorlinks=true, urlcolor=linkblue, linkcolor=black, citecolor=black]{hyperref}
+
+% ---------- Page Style ----------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % 清除所有页眉页脚
+\fancyfoot[C]{\thepage} % 居中显示页码
+\renewcommand{\headrulewidth}{0pt} % 移除页眉线
+\renewcommand{\footrulewidth}{0pt} % 移除页脚线
+
+% ---------- Icons ----------
+\usepackage{fontawesome5}
+
+% ---------- Lists ----------
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.4em, itemsep=2pt, topsep=2pt, label={\small$\bullet$}}
+\setlist[enumerate]{leftmargin=1.6em, itemsep=2pt, topsep=2pt}
+
+% ---------- Titles ----------
+\usepackage{titlesec}
+\titleformat{\section}
+  {\large\bfseries\color{secgray}\uppercase}
+  {}{0pt}{}
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+
+% ---------- Tabular helpers ----------
+\usepackage{tabularx}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+% ----- Skills table helpers -----
+\newlength{\skilllabelwd}
+\setlength{\skilllabelwd}{2cm} % ← 左列宽度，按你版面微调 2.4–3.0cm
+\newlength{\paperlabelwd}
+\setlength{\paperlabelwd}{1cm} % ← 论文编号列宽度
+
+\newcommand{\skillrow}[2]{%
+  \noindent\begingroup\setlength{\tabcolsep}{0pt}%
+  \begin{tabularx}{\linewidth}{@{}p{\skilllabelwd} X@{}}%
+    #1 & #2%
+  \end{tabularx}\par\endgroup
+}
+
+\newcommand{\paperrow}[2]{%
+  \vspace{4pt}%
+  \noindent\begingroup\setlength{\tabcolsep}{0pt}%
+  \begin{tabularx}{\linewidth}{@{}p{\paperlabelwd} X@{}}%
+    #1 & #2%
+  \end{tabularx}\par\endgroup
+}
+
+% ---------- CV Header ----------
+\newcommand{\cvname}[1]{%
+  \begin{center}\LARGE\bfseries #1\end{center}
+}
+\newcommand{\cvcontact}[1]{%
+  \begin{center}#1\end{center}
+}
+\newcommand{\cvaddress}[1]{%
+  \begin{center}\small #1\end{center}
+}
+\newcommand{\cvupdated}[1]{%
+  \begin{center}\footnotesize Last updated: #1\end{center}
+}
+
+% ---------- Entry Macros ----------
+% left=主标题/单位 | right=日期/标注 | body=条目列表或文字（自动顶格）
+\newcommand{\cventry}[3]{%
+  \vspace{4pt}
+  \noindent\begin{tabularx}{\linewidth}{@{}L r@{}}
+    #1 & \textit{#2}
+  \end{tabularx}\par
+  #3
+  \vspace{4pt}
+}
+
+% Research experience with bold titles
+\newcommand{\resentry}[3]{%
+  \vspace{4pt}
+  \noindent\begin{tabularx}{\linewidth}{@{}L r@{}}
+    \textbf{#1} & \textit{#2}
+  \end{tabularx}\par
+  #3
+  \vspace{4pt}
+}
+
+
+
+% 教育 / 经验条目（带位置/导师）
+% title=学位/职位, org=学校/机构, place=地点, date=日期, extra=附加行（导师/证书等，可留空）
+\newcommand{\eduentry}[5]{%
+  \vspace{4pt}
+  \noindent\begin{tabularx}{\linewidth}{@{}L r@{}}
+    \textbf{#1}, \textit{#2} & \textit{#4}
+  \end{tabularx}\par
+  \noindent{\small #3}\par
+  \if\relax\detokenize{#5}\relax\else{\small #5\par}\fi
+}
+
+% Publications 编号项
+% tag=[C1]/[J2]/[PP1] 等；正文可带\textit{}等
+\newcommand{\pubitem}[2]{%
+  \paperrow{\textbf{#1}}{#2}
+}
+
+% 小分组标题（Awards 下的 Paper Awards / Fellowships 等）
+\newcommand{\subsec}[1]{\vspace{4pt}\textbf{#1}\par\vspace{2pt}}
+
+% ---------- Document ----------
+\begin{document}
+
+% ===== Header =====
+\cvname{Qiuyi Ding}
+\cvcontact{%
+  \faEnvelope\ \href{mailto:dingqy@umich.edu}{dingqy@umich.edu}\ \quad
+  \faLink\ \href{http://qiuyiding.com}{http://qiuyiding.com}\ \quad
+  \faGoogle\ \href{https://scholar.google.com/citations?hl=en&user=sn4ACXUAAAAJ}{Qiuyi Ding}
+}
+\cvaddress{University of Michigan, Ann Arbor, MI, USA}
+\cvupdated{Nov 2025}
+
+% ===== Research Interest =====
+\section{Research Interest}
+My research interests lie in controllable generative models and unsupervised multimodal perception systems.
+
+% ===== Education =====
+\section{Education}
+\eduentry{B.S., Computer Science}{University of Michigan}{}{2023 -- Present}{Advisor: \href{https://andrewowens.com}{Prof. Andrew Owens}}
+
+% ===== Research Experience =====
+\section{Research Experience}
+\cventry{\textbf{HidingSound: Adaptive Soundscape Generation for Online Noise Coverage}}{2025}{%
+\textit{Advised by Prof. Andrew Owens}\par
+\begin{itemize}
+\item A real-time adaptive soundscape generation framework for sound masking, improving upon traditional soundscape design to better hide unwanted noise in real-world environments
+\end{itemize}
+}
+\cventry{\textbf{EXP-Bench: Can AI Conduct AI Research Experiments?}}{2025}{%
+\textit{Advisor: Prof. Mosharaf Chowdhury, Prof. Ang Chen}\par
+\begin{itemize}
+\item We built Exp-Bench, a scalable benchmark for LLM evaluation by automating domain document curation, reasoning-oriented QA generation, and multi-agent verification, yielding diverse, high-fidelity datasets that better capture real-world complexity and align with human judgments
+\end{itemize}
+}
+\cventry{\textbf{Curie: Automated and Rigorous Scientific Experimentation with AI Agents}}{2024}{%
+\textit{Advisor: Prof. Mosharaf Chowdhury, Prof. Ang Chen}\par
+\begin{itemize}
+\item Curie is the first AI-agent framework designed for automated and rigorous scientific experimentation. Curie helps answer your curiosity through end-to-end experimentation automation, ensuring that every step—from hypothesis formulation to result interpretation—is conducted with precision, reliability, and reproducibility
+\item \href{https://www.just-curieous.com}{Website}
+\end{itemize}
+}
+
+% ===== Publications =====
+\section{Publications \ [\texorpdfstring{\href{https://scholar.google.com/citations?hl=en&user=sn4ACXUAAAAJ}{\faGoogle}}{Google Scholar}]}
+\textit{* equal contribution}
+
+\pubitem{[1]}{\textcolor{linkblue}{\textbf{Hiding Sound Using Diffusion Illusions}}. \textbf{Qiuyi Ding}, Yiming Dou, Andrew Owens. \textit{(Honor Thesis, to be submitted)}.}
+\pubitem{[2]}{\href{https://arxiv.org/abs/2505.24785}{\textbf{EXP-Bench: Can AI Conduct AI Research Experiments?}}. Patrick Tser Jern Kon, \textbf{Qiuyi Ding}, Jiachen Liu, Xinyi Zhu, Jingjia Peng, Jiarong Xing, Yibo Huang, Yiming Qiu, Jayanth Srinivasa, Myungjin Lee, Mosharaf Chowdhury, Matei Zaharia, Ang Chen. 2025. In: \textit{Proceedings of the International Conference on Learning Representations (ICLR 2026)}.}
+\pubitem{[3]}{\href{https://arxiv.org/abs/2502.16069}{\textbf{Curie: Toward Rigorous and Automated Scientific Experimentation with AI Agents}}. Patrick Tser Jern Kon*, Jiachen Liu*, \textbf{Qiuyi Ding}, Yiming Qiu, Zhenning Yang, Yibo Huang, Jayanth Srinivasa, Myungjin Lee, Mosharaf Chowdhury, Ang Chen. 2025. In: \textit{arXiv preprint (2025)}.}
+
+% ===== Projects =====
+\section{Selected Projects}
+\cventry{\textbf{RAG Benchmark for Pathology Education Assistant}}{2025}{%
+\textit{Multidisciplinary Design Program, DIAG Team of UMich}\par
+\begin{itemize}
+\item Built a RAG-based benchmark for pathology education, combining LLMs with open educational resources for accurate, domain-adaptive knowledge support. \href{https://peer.asee.org/board-92-wip-generative-ai-based-learning-tutor-for-biomedical-data-science-gail-tutor-bds}{ASEE Annual Conference Poster}
+\end{itemize}
+}
+\cventry{\textbf{Immersive NPCs in VR Game Environment}}{2024}{%
+\textit{Course Project for EECS498: AI-Enabled Mixed Reality}\par
+\begin{itemize}
+\item Built LLM-powered NPCs in Unity + VRChat with GPT-4, giving them persistent memory, distinct personalities, and full speech I/O. NPCs that actually remember you next time.
+\end{itemize}
+}
+\cventry{\textbf{Encoder Integration and Efficiency Optimization for Language-Embedded Radiance Fields}}{2024}{%
+\textit{Course Project for EECS442: Computer Vision}\par
+\begin{itemize}
+\item LERF embeds CLIP language features into a NeRF, enabling open-vocabulary text queries to localize objects in 3D scenes. Swapped in a SigLIP encoder for sharper localization accuracy, and cut training time by 31\% via AdamW and reduced eval/checkpoint overhead.
+\end{itemize}
+}
+
+% ===== Services =====
+\section{Services}
+
+\cventry{EECS245 Tutor (Mathematics for Machine Learning)}{2025}{}
+
+% ===== Selected Awards & Honors =====
+\section{Selected Awards \& Honors}
+
+\cventry{University of Michigan Honors Program}{2026}{}
+\cventry{James B. Angell Scholars}{2025}{}
+
+% ===== Skills =====
+\section{Skills}
+
+\subsec{Programming Languages}
+\skillrow{Proficient}{Python, C/C++, CUDA, Java, \TeX, HTML/CSS}
+\skillrow{Familiar}{JAX, C\#, MATLAB, Mathematica, JavaScript}
+\skillrow{Capable}{Bash, SQL, Triton, Pascal}
+
+\subsec{Natural Languages}
+\skillrow{Native}{Mandarin Chinese}
+\skillrow{Fluent}{English}
+
+
+
+\end{document}
+
