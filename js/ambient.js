@@ -10,10 +10,11 @@
   'use strict';
 
   /* ───────────────────────────────────────────────────────────────────────
-     WHERE I AM.  Change this when you move — the sky, the colours and the
-     particles all follow.  Coordinates: https://open-meteo.com (search box)
+     WHERE I AM.  Change these two numbers when you move — the sky, the
+     colours and the particles all follow.  The badge shows the weather only,
+     never the place.  Look up coordinates at https://open-meteo.com
      ─────────────────────────────────────────────────────────────────────── */
-  var HOME = { label: 'Ann Arbor', lat: 42.2808, lon: -83.7430 };
+  var HOME = { lat: 40.4406, lon: -79.9959 };
 
   var CACHE_KEY = 'ambient.weather.v1';
   var CACHE_MS = 20 * 60 * 1000;
@@ -143,7 +144,7 @@
           ? '' : '<span class="weather-badge__temp">' + state.temp + '°C</span> · ';
         el.innerHTML =
           '<span class="weather-badge__icon" aria-hidden="true">' + pair[0] + '</span>' +
-          '<span>' + temp + pair[1] + ' in ' + HOME.label + '</span>';
+          '<span>' + temp + pair[1] + '</span>';
         el.classList.add('is-ready');
       }
     };
