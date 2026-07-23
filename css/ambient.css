@@ -1,0 +1,472 @@
+/* =========================================================================
+   Ambient plush background.
+
+   The sky, the fuzz and the particles are all driven by two attributes that
+   js/ambient.js sets on <html>:
+
+     data-weather  = clear | cloudy | rain | snow | fog | storm
+     data-daylight = day | night
+
+   Every colour below is a CSS custom property, so retinting a scene is a
+   one-line change and nothing in the JS needs to know about colour.
+   ========================================================================= */
+
+:root {
+  /* sky gradient stops */
+  --sky-1: #ffe9d8;
+  --sky-2: #f9d6e8;
+  --sky-3: #d6e0fa;
+
+  /* sun / moon glow */
+  --glow: rgba(255, 202, 128, .70);
+  --glow-x: 78%;
+  --glow-y: 10%;
+  --glow-size: 46vmax;
+
+  /* drifting fluff blobs */
+  --blob-a: rgba(255, 255, 255, .82);
+  --blob-b: rgba(255, 214, 234, .70);
+  --blob-c: rgba(206, 224, 255, .66);
+
+  /* fur/felt grain strength */
+  --fuzz: .50;
+
+  /* canvas particle tint, as "r, g, b" */
+  --particle: 255, 255, 255;
+
+  /* content card + type */
+  --card-bg: rgba(255, 255, 255, .62);
+  --card-border: rgba(255, 255, 255, .88);
+  --card-shadow: rgba(120, 100, 130, .34);
+  --ink: #2b2932;
+  --ink-soft: #605c6b;
+  --link: #1772d0;
+  --link-hover: #f09228;
+  --rule: rgba(120, 100, 130, .16);
+}
+
+/* ── daytime weather ───────────────────────────────────────────────────── */
+
+:root[data-weather="cloudy"] {
+  --sky-1: #f0edf5;
+  --sky-2: #dedbec;
+  --sky-3: #c8ccdf;
+  --glow: rgba(255, 255, 255, .60);
+  --blob-a: rgba(255, 255, 255, .90);
+  --blob-b: rgba(228, 226, 242, .78);
+  --blob-c: rgba(198, 206, 228, .66);
+  --fuzz: .52;
+}
+
+:root[data-weather="rain"] {
+  --sky-1: #cfdae8;
+  --sky-2: #b7c7dc;
+  --sky-3: #9db0cb;
+  --glow: rgba(255, 255, 255, .34);
+  --blob-a: rgba(222, 232, 244, .74);
+  --blob-b: rgba(186, 202, 224, .66);
+  --blob-c: rgba(158, 176, 202, .56);
+  --particle: 96, 122, 158;     /* darker than the sky, so streaks read */
+  --fuzz: .42;
+  --card-bg: rgba(255, 255, 255, .68);
+}
+
+:root[data-weather="snow"] {
+  --sky-1: #e7eff9;
+  --sky-2: #d5e2f2;
+  --sky-3: #c0d3ea;
+  --glow: rgba(255, 255, 255, .66);
+  --blob-a: rgba(255, 255, 255, .92);
+  --blob-b: rgba(224, 236, 250, .80);
+  --blob-c: rgba(198, 218, 242, .68);
+  --particle: 255, 255, 255;
+  --fuzz: .56;
+}
+
+:root[data-weather="fog"] {
+  --sky-1: #e6e3df;
+  --sky-2: #d4d1cc;
+  --sky-3: #bebbb6;
+  --glow: rgba(255, 255, 255, .42);
+  --blob-a: rgba(250, 248, 245, .84);
+  --blob-b: rgba(218, 215, 210, .74);
+  --blob-c: rgba(192, 190, 186, .62);
+  --particle: 252, 250, 247;
+  --fuzz: .56;
+}
+
+:root[data-weather="storm"] {
+  --sky-1: #b6bfd0;
+  --sky-2: #97a3ba;
+  --sky-3: #78859e;
+  --glow: rgba(255, 255, 255, .24);
+  --blob-a: rgba(198, 208, 224, .70);
+  --blob-b: rgba(162, 176, 198, .62);
+  --blob-c: rgba(128, 144, 170, .54);
+  --particle: 60, 76, 104;
+  --fuzz: .38;
+  --card-bg: rgba(255, 255, 255, .74);
+}
+
+/* ── night ─────────────────────────────────────────────────────────────── */
+
+:root[data-daylight="night"] {
+  --sky-1: #241f3a;
+  --sky-2: #1c1a30;
+  --sky-3: #131324;
+  --glow: rgba(198, 206, 255, .30);
+  --glow-x: 80%;
+  --glow-y: 14%;
+  --blob-a: rgba(86, 78, 128, .55);
+  --blob-b: rgba(60, 62, 108, .50);
+  --blob-c: rgba(44, 44, 78, .48);
+  --particle: 226, 232, 255;
+  --fuzz: .30;
+
+  --card-bg: rgba(30, 28, 46, .62);
+  --card-border: rgba(255, 255, 255, .14);
+  --card-shadow: rgba(0, 0, 0, .55);
+  --ink: #ece9f4;
+  --ink-soft: #b0aac4;
+  --link: #8ec5ff;
+  --link-hover: #ffc06b;
+  --rule: rgba(255, 255, 255, .12);
+}
+
+:root[data-daylight="night"][data-weather="clear"] {
+  --sky-1: #2a2350;
+  --sky-2: #1b1a38;
+  --sky-3: #0f1020;
+}
+
+:root[data-daylight="night"][data-weather="rain"],
+:root[data-daylight="night"][data-weather="storm"] {
+  --sky-1: #1e2436;
+  --sky-2: #172032;
+  --sky-3: #0e1524;
+  --glow: rgba(170, 190, 230, .18);
+}
+
+:root[data-daylight="night"][data-weather="snow"] {
+  --sky-1: #2c3252;
+  --sky-2: #202741;
+  --sky-3: #161c30;
+  --glow: rgba(214, 228, 255, .34);
+}
+
+:root[data-daylight="night"][data-weather="fog"] {
+  --sky-1: #2a2a34;
+  --sky-2: #212128;
+  --sky-3: #17171d;
+  --glow: rgba(220, 220, 230, .16);
+}
+
+/* =========================================================================
+   The background layers themselves
+   ========================================================================= */
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--sky-3);
+  transition: color .8s ease, background-color 1.2s ease;
+}
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient > * {
+  position: absolute;
+  inset: 0;
+}
+
+/* 1. the sky */
+.ambient__sky {
+  background:
+    linear-gradient(170deg, var(--sky-1) 0%, var(--sky-2) 48%, var(--sky-3) 100%);
+  transition: background 1.4s ease;
+}
+
+/* 2. sun / moon glow */
+.ambient__glow {
+  background:
+    radial-gradient(var(--glow-size) var(--glow-size) at var(--glow-x) var(--glow-y),
+      var(--glow) 0%, rgba(255, 255, 255, 0) 68%);
+  transition: background 1.4s ease;
+  animation: breathe 14s ease-in-out infinite;
+}
+
+/* 3. big soft fluff clumps, slowly drifting */
+.ambient__blobs span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(44px);
+  opacity: .55;
+  will-change: transform;
+  animation: drift 52s ease-in-out infinite alternate;
+}
+
+.ambient__blobs span:nth-child(1) {
+  width: 34vmax; height: 30vmax; top: -9vmax; left: -8vmax;
+  background: var(--blob-a); animation-duration: 58s;
+}
+.ambient__blobs span:nth-child(2) {
+  width: 27vmax; height: 24vmax; top: 10vmax; right: -9vmax; left: auto;
+  background: var(--blob-b); animation-duration: 66s; animation-delay: -14s;
+}
+.ambient__blobs span:nth-child(3) {
+  width: 40vmax; height: 34vmax; bottom: -16vmax; left: 10vmax;
+  background: var(--blob-c); animation-duration: 74s; animation-delay: -30s;
+}
+.ambient__blobs span:nth-child(4) {
+  width: 22vmax; height: 20vmax; bottom: -4vmax; right: 3vmax; left: auto;
+  background: var(--blob-a); animation-duration: 62s; animation-delay: -46s;
+}
+
+/* 4. rain / snow / motes / stars */
+.ambient__canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 5. the plush bit: two layers of fractal noise, drifting against each other
+      so the "pile" of the fabric seems to shift in the light */
+.ambient__fuzz {
+  inset: -12%;
+  opacity: var(--fuzz);
+  mix-blend-mode: overlay;
+  background-repeat: repeat, repeat;
+  background-size: 190px 190px, 900px 900px;
+  background-image:
+    /* fine pile: high-contrast grain, the "fur" itself */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='190' height='190'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='2.1' intercept='-0.55'/%3E%3CfeFuncG type='linear' slope='2.1' intercept='-0.55'/%3E%3CfeFuncB type='linear' slope='2.1' intercept='-0.55'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='190' height='190' filter='url(%23g)'/%3E%3C/svg%3E"),
+    /* clumps: where the nap bunches up */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeGaussianBlur stdDeviation='3'/%3E%3C/filter%3E%3Crect width='900' height='900' filter='url(%23c)'/%3E%3C/svg%3E");
+  animation: pile 120s linear infinite;
+  will-change: background-position;
+}
+
+/* 6. corners fall away, so the card floats */
+.ambient__vignette {
+  background: radial-gradient(120% 90% at 50% 42%,
+    rgba(0, 0, 0, 0) 42%, rgba(40, 30, 55, .16) 100%);
+}
+
+:root[data-daylight="night"] .ambient__vignette {
+  background: radial-gradient(120% 90% at 50% 42%,
+    rgba(0, 0, 0, 0) 34%, rgba(0, 0, 0, .48) 100%);
+}
+
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(6vmax, -4vmax, 0) scale(1.14); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: .88; }
+  50%      { opacity: 1; }
+}
+
+@keyframes pile {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 220px 180px, -420px 260px; }
+}
+
+/* =========================================================================
+   Content card
+   ========================================================================= */
+
+.page-shell {
+  max-width: 880px;
+  margin: 34px auto 72px;
+  padding: 6px 14px 22px;
+  border: 1px solid var(--card-border);
+  border-radius: 30px;
+  background: var(--card-bg);
+  box-shadow:
+    0 28px 64px -26px var(--card-shadow),
+    0 1px 0 rgba(255, 255, 255, .55) inset;
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+  transition: background-color 1.2s ease, border-color 1.2s ease, box-shadow 1.2s ease;
+}
+
+/* The template's nested tables have a min-content width wider than a phone,
+   so below 620px every cell becomes a block and stacks instead. */
+@media (max-width: 620px) {
+  .page-shell {
+    margin: 12px 8px 40px;
+    padding: 4px 0 16px;
+    border-radius: 22px;
+  }
+
+  .page-shell table,
+  .page-shell tbody,
+  .page-shell tr,
+  .page-shell td {
+    display: block;
+    width: auto !important;
+    max-width: 100% !important;
+  }
+
+  .page-shell td {
+    padding: 8px 16px !important;
+  }
+
+  .page-shell img {
+    max-width: 100% !important;
+    height: auto;
+  }
+
+  /* thumbnails and the portrait centre themselves once stacked */
+  .page-shell td > img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .portrait-cell {
+    text-align: center;
+    padding-top: 0 !important;
+  }
+
+  .portrait-cell img {
+    max-width: 210px !important;
+  }
+}
+
+/* inherit the scene's ink instead of the browser default black */
+body,
+td, th, tr, p, li, strong, em, h1, h2, h3 {
+  color: var(--ink);
+}
+
+a {
+  color: var(--link);
+  transition: color .2s ease;
+}
+
+a:focus,
+a:hover {
+  color: var(--link-hover);
+}
+
+.name {
+  letter-spacing: -.4px;
+}
+
+h2 {
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* soft plush ring around the portrait */
+.page-shell img[alt="profile photo"] {
+  box-shadow:
+    0 0 0 6px rgba(255, 255, 255, .55),
+    0 18px 38px -14px var(--card-shadow);
+  transition: transform .5s cubic-bezier(.2, .8, .2, 1), box-shadow .5s ease;
+}
+
+.page-shell img[alt="profile photo"]:hover {
+  transform: scale(1.03) rotate(-1deg);
+}
+
+/* paper thumbnails lift slightly on hover */
+.page-shell td img:not([alt="profile photo"]) {
+  border-radius: 10px;
+  transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease;
+}
+
+.page-shell td img:not([alt="profile photo"]):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 26px -12px var(--card-shadow);
+}
+
+.page-shell p[style*="font-size:small"] {
+  color: var(--ink-soft);
+}
+
+/* =========================================================================
+   Weather badge
+   ========================================================================= */
+
+.weather-badge {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  background: var(--card-bg);
+  box-shadow: 0 10px 24px -14px var(--card-shadow);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+  color: var(--ink-soft);
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 12.5px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity .6s ease, transform .6s ease, background-color 1.2s ease,
+              color .8s ease, border-color 1.2s ease;
+}
+
+.weather-badge.is-ready {
+  opacity: 1;
+  transform: none;
+}
+
+.weather-badge:hover {
+  color: var(--ink);
+}
+
+.weather-badge__icon {
+  font-size: 14px;
+}
+
+.weather-badge__temp {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 620px) {
+  .weather-badge {
+    top: 10px;
+    right: 10px;
+    padding: 6px 10px;
+    font-size: 11.5px;
+  }
+}
+
+/* =========================================================================
+   Motion preferences — everything decorative stops, nothing moves.
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient__blobs span,
+  .ambient__glow,
+  .ambient__fuzz {
+    animation: none !important;
+  }
+  .ambient__canvas {
+    display: none;
+  }
+  .page-shell img {
+    transition: none !important;
+  }
+}

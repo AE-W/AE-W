@@ -14,6 +14,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="images/favicon/favicon2.png">
     <link rel="icon" type="image/png" sizes="512x512" href="images/favicon/favicon2.png">
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="css/ambient.css">
     <style>
       body {
         font-size: 1.1em;
@@ -22,10 +23,20 @@
         font-size: 1.05em;
       }
     </style>
-    
+    <script src="js/ambient.js" defer></script>
   </head>
 
   <body>
+    <div class="ambient" aria-hidden="true">
+      <div class="ambient__sky"></div>
+      <div class="ambient__glow"></div>
+      <div class="ambient__blobs"><span></span><span></span><span></span><span></span></div>
+      <canvas class="ambient__canvas"></canvas>
+      <div class="ambient__fuzz"></div>
+      <div class="ambient__vignette"></div>
+    </div>
+
+    <main class="page-shell">
     <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
       <tr style="padding:0px">
         <td style="padding:0px">
@@ -39,11 +50,10 @@
 		I am an undergraduate student in Computer Science at the University of Michigan. I'm advised by <a href="https://andrewowens.com">Prof. Andrew Owens</a> during my honors program. I'm also fortunate to collaborate with <a href="https://web.eecs.umich.edu/~chenang/">Prof. Ang Chen</a> and <a href="https://www.cs-pk.com">Patrick Kon</a>, who provided me with invaluable research experience.
                 </p>
                 <p style="text-align:center">
-                  <a href="mailto:dingqy@umich.edu">Email</a> &nbsp;/&nbsp;
-                  <a href="https://github.com/AE-W/">Github</a>
+                  <a href="mailto:dingqy@umich.edu">Email</a>
                 </p>
               </td>
-              <td style="padding:2.5%;width:37%;max-width:37%">
+              <td class="portrait-cell" style="padding:2.5%;width:37%;max-width:37%">
                 <a href="images/profile.jpg"><img style="width:100%;max-width:100%;object-fit: cover; border-radius: 50%;" alt="profile photo" src="images/profile.jpg"></a>
               </td>
             </tr>
@@ -86,7 +96,7 @@
         <span class="papertitle">Generative Sound Masking</span>
         <br>
         <a href="https://www.yimingdou.com">Yiming Dou<sup>*</sup></a>,
-        <a href="https://ae-w.github.io/AE-W/">Qiuyi Ding<sup>*</sup></a>,
+        <a href="https://qiuyiding.com/">Qiuyi Ding<sup>*</sup></a>,
         <a href="https://andrewowens.com">Andrew Owens</a>
         <br>
         <em>2026</em>
@@ -106,7 +116,7 @@
         <br>
         <a href="https://www.cs-pk.com">Patrick Tser Jern Kon<sup>*</sup></a>,
         <a href="https://amberljc.github.io">Jiachen Liu<sup>*</sup></a>,
-        <a href="https://ae-w.github.io/AE-W/">Qiuyi Ding</a>,
+        <a href="https://qiuyiding.com/">Qiuyi Ding</a>,
         <a href="https://yimingqiu.me">Yiming Qiu</a>,
         <a href="https://zyang37.github.io">Zhenning Yang</a>,
         <a href="https://huangyibo.github.io">Yibo Huang</a>,
@@ -135,7 +145,7 @@
         <span class="papertitle">EXP-Bench: Can AI Conduct AI Research Experiments?</span>
         <br>
         <a href="https://www.cs-pk.com">Patrick Tser Jern Kon</a>,
-        <a href="https://ae-w.github.io/AE-W/">Qiuyi Ding</a>,
+        <a href="https://qiuyiding.com/">Qiuyi Ding</a>,
         <a href="https://amberljc.github.io">Jiachen Liu</a>,
         <a href="">Xinyi Zhu</a>,
         <a href="https://jingjia-peng.github.io">Jingjia Peng</a>,
@@ -229,6 +239,7 @@
         </td>
       </tr>
     </table>
+    </main>
     <img src="//www.clustrmaps.com/map_v2.png?d=1SSW4l338cFGNqtKPmtghAggqWa9mmxNDkEyQjpdVkw&cl=ffffff" style="display:none;" alt="visitor tracking">
   </body>
 </html>
